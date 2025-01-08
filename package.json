@@ -12,14 +12,18 @@
   },
   "dependencies": {
     "@mijn-ui/react-button": "^0.0.15",
+    "@mijn-ui/react-collapsible": "^0.0.11",
     "@mijn-ui/react-core": "^0.0.5",
+    "@mijn-ui/react-hooks": "^0.0.13",
     "@mijn-ui/react-theme": "^0.0.10",
     "next": "15.1.4",
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
+    "react-click-away-listener": "^2.3.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.4.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.4"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
@@ -29,7 +33,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.1.4",
-    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-hooks": "5.1.0-rc-fb9a90fa48-20240614",
     "eslint-plugin-tailwindcss": "^3.17.5",
     "postcss": "^8",
     "prettier": "^3.4.2",

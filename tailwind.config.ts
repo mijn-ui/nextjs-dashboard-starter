@@ -8,6 +8,15 @@ export default {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@mijn-ui/react-theme/dist/**/*.js",
   ],
+  theme: {
+    extends: {
+      colors: {
+        sidbar: {
+          DEFAULT: "hsl(var(--sidebar) / <alpha-value>)",
+        },
+      },
+    },
+  },
   darkMode: "class",
   plugins: [animationPlugin, mijnui()],
 }

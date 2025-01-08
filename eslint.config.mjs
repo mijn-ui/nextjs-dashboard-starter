@@ -34,7 +34,10 @@ const configs = [
     },
     rules: {
       ...hooksPlugin.configs.recommended.rules,
+
       "tailwindcss/no-custom-classname": "off",
+      "tailwindcss/enforces-negative-arbitrary-values": "off",
+
       "import/no-anonymous-default-export": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-unused-vars": [
