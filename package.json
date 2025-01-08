@@ -11,9 +11,13 @@
     "prettier:fix": "prettier --cache --write --list-different --ignore-path .gitignore --ignore-path .prettierignore ."
   },
   "dependencies": {
+    "@mijn-ui/react-button": "^0.0.15",
+    "@mijn-ui/react-core": "^0.0.5",
+    "@mijn-ui/react-theme": "^0.0.10",
     "next": "15.1.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
