@@ -1,0 +1,17 @@
+# Ignore common lock files
+pnpm-lock.yaml
+yarn.lock
+
+# Ignore version control and dependency folders
+node_modules
+.next
+
+# Ignore changelog and changeset files
+CHANGELOG.md
+.changeset/*.md
+
+# Ignore GitHub-specific files
+.github/**/*.md
+
+# Ignore public assets
+public

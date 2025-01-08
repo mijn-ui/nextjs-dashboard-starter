@@ -8,14 +8,16 @@ export default {
     "^(next/(.*)$)|^(next$)",
     "<THIRD_PARTY_MODULES>",
     "@mijn-ui/(.*)$",
-    "^@/components/ui/(.*)$",
     "^@/components/(.*)$",
     "^@/app/(.*)$",
-    "",
     "^[./]",
   ],
   importOrderSeparation: false,
   importOrderSortSpecifiers: true,
-  importOrderParserPlugins: ["typescript", "jsx", "decorators-legacy"],
-  plugins: ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
-};
+  plugins: [
+    "@trivago/prettier-plugin-sort-imports",
+    // make sure to put the prettier-plugin-tailwindcss at the end otherwise it will not work
+    // see: https://github.com/tailwindlabs/prettier-plugin-tailwindcss?tab=readme-ov-file#compatibility-with-other-prettier-plugins
+    "prettier-plugin-tailwindcss",
+  ],
+}
