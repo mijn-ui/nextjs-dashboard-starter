@@ -120,6 +120,7 @@ const ListItem = ({
     return (
       <Button
         variant={"ghost"}
+        size="sm"
         key={`list-${uuidv4()}`}
         onClick={handleClick}
         className="w-full justify-start gap-2 truncate px-3 text-muted-foreground"
@@ -140,7 +141,7 @@ const ListItem = ({
       key={`list-${uuidv4()}`}
       onClick={handleClick}
       className={cn(
-        buttonStyles({ variant: "ghost" }).base(),
+        buttonStyles({ variant: "ghost", size: "sm" }).base(),
         "w-full justify-start gap-2 truncate px-3 text-muted-foreground",
         link === currentPath &&
           "bg-primary/20 text-primary hover:bg-primary/20 hover:text-primary",
@@ -168,7 +169,7 @@ const SubListItem = ({
   const { name, link } = subItem
 
   return (
-    <li onClick={handleClick} className="block w-full px-4 sm:pl-7">
+    <li onClick={handleClick} className="block w-full sm:pl-3">
       <Link
         href={link}
         className={cn(

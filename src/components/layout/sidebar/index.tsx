@@ -112,7 +112,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           )}
         >
           <h3 className="truncate px-6 text-xs font-semibold uppercase text-muted-foreground">
-            {currentSidebarData?.contentTitle}
+            {currentSidebarData?.category}
           </h3>
 
           <div className="px-3 md:px-6">
