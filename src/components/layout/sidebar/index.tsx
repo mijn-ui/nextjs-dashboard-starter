@@ -6,9 +6,9 @@ import { usePathname } from "next/navigation"
 import ClickAwayListener from "react-click-away-listener"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import { LuArrowRight } from "react-icons/lu"
-import { Button } from "@mijn-ui/react-button"
-import { useMediaQuery } from "@mijn-ui/react-hooks"
 import { buttonStyles, cn } from "@mijn-ui/react-theme"
+import { useMediaQuery } from "@mijn-ui/react-hooks"
+import { Button } from "@mijn-ui/react-button"
 import Logo from "@/components/common/logo"
 import { SidebarData, getSidebarActiveInfo } from "./sidebar-data"
 import SidebarMenuList from "./sidebar-menu-list"
@@ -60,13 +60,15 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
       <aside
         data-state={isOpen ? "open" : "closed"}
         className={cn(
-          "group fixed inset-y-0 left-0 z-50 flex bg-card shadow-md transition-[left] duration-300 ease-in-out",
+          "group fixed inset-y-0 left-0 z-50 flex bg-sidebar shadow-md transition-[left] duration-300 ease-in-out",
           !isDesktop &&
             "data-[state=closed]:-left-[var(--sidebar-content-width)]",
         )}
       >
         <div className="flex w-[var(--sidebar-width)] flex-col items-center gap-8 pt-8">
-          <Logo />
+          <Link href={"/"}>
+            <Logo className="size-6" />
+          </Link>
 
           <div className="flex flex-col gap-2">
             <Link
@@ -75,7 +77,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                 buttonStyles({
                   variant: "outlined",
                   size: "icon",
-                }),
+                }).base(),
                 "border-primary bg-accent/80 text-primary hover:text-primary",
               )}
               title={"App"}
@@ -150,3 +152,14 @@ const SidebarToggler = ({ isOpen, setIsOpen }: SidebarTogglerProps) => (
 )
 
 export default Sidebar
+
+/* -------------------------------------------------------------------------- */
+
+export const SidebarSkeleton = (props: React.ComponentProps<"aside">) => {
+  return (
+    <aside
+      className="fixed inset-y-0 left-0 z-50 flex w-[var(--sidebar-width)] animate-pulse bg-sidebar shadow-md transition-[left] duration-1000 ease-in-out"
+      {...props}
+    />
+  )
+}

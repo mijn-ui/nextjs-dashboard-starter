@@ -4,14 +4,14 @@ import { usePathname } from "next/navigation"
 import { LuChevronDown } from "react-icons/lu"
 import { PiDotOutlineFill } from "react-icons/pi"
 import { v4 as uuidv4 } from "uuid"
+import { buttonStyles, cn } from "@mijn-ui/react-theme"
+import { useMediaQuery } from "@mijn-ui/react-hooks"
 import { Button } from "@mijn-ui/react-button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@mijn-ui/react-collapsible"
-import { useMediaQuery } from "@mijn-ui/react-hooks"
-import { buttonStyles, cn } from "@mijn-ui/react-theme"
 import { SidebarListsType } from "./sidebar-data"
 
 /* -------------------------------------------------------------------------- */
@@ -42,7 +42,7 @@ const SidebarMenuList = ({
 
   return (
     <div className="flex w-full flex-col items-center">
-      {lists?.map((listItem, index) => (
+      {lists.map((listItem, index) => (
         <ListItem
           key={uuidv4()}
           listItem={listItem}
@@ -80,12 +80,12 @@ const ListItem = ({
   if (isSidebarMenuList) {
     return (
       <Collapsible
-        key={uuidv4()}
-        open={activeIndex === index}
+        key={`list-${uuidv4()}`}
         className="w-full"
+        open={activeIndex === index}
         onOpenChange={() => handleToggle(index)}
       >
-        <CollapsibleTrigger className="group flex w-full items-center gap-2 truncate px-4 py-2 text-sm text-muted-foreground hover:text-primary data-[state=open]:text-primary">
+        <CollapsibleTrigger className="group flex w-full items-center gap-2 truncate px-4 py-2 text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground data-[state=open]:text-primary">
           {icon && (
             <CollapsibleIcon className="[&>svg]:size-3.5">
               {icon}
@@ -94,20 +94,17 @@ const ListItem = ({
           <div className="w-full flex-1 text-left">{title}</div>
           <LuChevronDown
             className={cn(
-              "duration-400 size-4 shrink-0 text-muted-foreground ease-in-out",
+              "size-4 shrink-0 rotate-0 text-muted-foreground transition-transform duration-300 ease-in-out",
               activeIndex === index && "rotate-180",
             )}
           />
         </CollapsibleTrigger>
 
-        <CollapsibleContent
-          asChild
-          className="data-[state=closed]:animate-collapsible-collapse data-[state=open]:animate-collapsible-expand overflow-hidden text-sm transition-[height]"
-        >
-          <ul>
+        <CollapsibleContent asChild>
+          <ul className="flex flex-col gap-1 overflow-hidden">
             {list?.map((subItem) => (
               <SubListItem
-                key={uuidv4()}
+                key={`list-item-${uuidv4()}`}
                 subItem={subItem}
                 currentPath={currentPath}
                 handleClick={handleClick}
@@ -123,9 +120,9 @@ const ListItem = ({
     return (
       <Button
         variant={"ghost"}
-        key={uuidv4()}
+        key={`list-${uuidv4()}`}
         onClick={handleClick}
-        className="w-full justify-start gap-2 truncate px-3 text-muted-foreground hover:bg-transparent hover:text-primary"
+        className="w-full justify-start gap-2 truncate px-3 text-muted-foreground"
       >
         {icon && (
           <span className="flex size-5 shrink-0 items-center justify-center [&>svg]:size-3.5">
@@ -140,12 +137,13 @@ const ListItem = ({
   return (
     <Link
       href={link}
-      key={uuidv4()}
+      key={`list-${uuidv4()}`}
       onClick={handleClick}
       className={cn(
-        buttonStyles({ variant: "ghost" }),
-        "w-full justify-start gap-2 truncate px-3 text-muted-foreground hover:bg-transparent hover:text-primary",
-        link === currentPath && "text-primary",
+        buttonStyles({ variant: "ghost" }).base(),
+        "w-full justify-start gap-2 truncate px-3 text-muted-foreground",
+        link === currentPath &&
+          "bg-primary/20 text-primary hover:bg-primary/20 hover:text-primary",
       )}
     >
       {icon && (
@@ -170,15 +168,14 @@ const SubListItem = ({
   const { name, link } = subItem
 
   return (
-    <li
-      onClick={handleClick}
-      className="flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground hover:text-primary sm:pl-7"
-    >
+    <li onClick={handleClick} className="block w-full px-4 sm:pl-7">
       <Link
         href={link}
         className={cn(
-          "flex w-full items-center gap-1 truncate",
-          link === currentPath && "text-primary",
+          buttonStyles({ variant: "ghost", size: "sm" }).base(),
+          "w-full justify-start gap-1 truncate text-muted-foreground",
+          link === currentPath &&
+            "bg-primary/20 text-primary hover:bg-primary/20 hover:text-primary",
         )}
       >
         <CollapsibleIcon>

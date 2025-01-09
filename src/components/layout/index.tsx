@@ -2,7 +2,7 @@
 
 import React from "react"
 import { useScrollLockEffect } from "@/hooks/use-scroll-lock"
-import Sidebar from "./sidebar"
+import Sidebar, { SidebarSkeleton } from "./sidebar"
 import { useLayout } from "./use-layout"
 
 interface LayoutProps {
@@ -42,3 +42,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 }
 
 export default Layout
+
+export const LayoutSkeleton = () => (
+  <>
+    <SidebarSkeleton />
+  </>
+)

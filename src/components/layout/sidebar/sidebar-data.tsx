@@ -340,6 +340,20 @@ export const isExistingUrl = (url: string): boolean => {
 
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Retrieves the active sidebar information based on the provided URL.
+ *
+ * This function iterates through the `SidebarData` to find the matching URL
+ * and returns the corresponding title, index, and collapsible index.
+ *
+ * @param {string} url - The URL to match against the sidebar data.
+ * @returns {object | undefined} - An object containing the title, index, and collapsible index
+ *                                 if a match is found, otherwise `undefined`.
+ * @property {string} title - The title of the matched item.
+ * @property {number} index - The index of the matched item in the `SidebarData`.
+ * @property {number} collapsibleIndex - The index of the collapsible list if applicable, otherwise `-1`.
+ */
+
 export const getSidebarActiveInfo = (url: string) => {
   for (const data of SidebarData) {
     for (const list of data.lists) {
