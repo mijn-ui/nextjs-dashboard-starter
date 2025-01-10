@@ -57,6 +57,19 @@ const SidebarMenuList = ({
   )
 }
 
+/* -------------------------------------------------------------------------- */
+
+const defaultButtonStyles = buttonStyles({
+  variant: "ghost",
+  size: "sm",
+}).base({ className: "text-muted-foreground" })
+
+const activeButtonStyles = buttonStyles({
+  variant: "subtle",
+  color: "primary",
+  size: "sm",
+}).base()
+
 type ListItemProps = {
   listItem: SidebarListsType
   index: number
@@ -76,6 +89,8 @@ const ListItem = ({
 }: ListItemProps) => {
   const { icon: Icon, title, list, link } = listItem
   const isSidebarMenuList = Array.isArray(list) && !link
+
+  // TODO: Make the collabsible component's animation work.
 
   if (isSidebarMenuList) {
     return (
@@ -141,10 +156,8 @@ const ListItem = ({
       key={`list-${uuidv4()}`}
       onClick={handleClick}
       className={cn(
-        buttonStyles({ variant: "ghost", size: "sm" }).base(),
-        "w-full justify-start gap-2 truncate px-3 text-muted-foreground",
-        link === currentPath &&
-          "bg-primary/20 text-primary hover:bg-primary/20 hover:text-primary",
+        link === currentPath ? activeButtonStyles : defaultButtonStyles,
+        "w-full justify-start gap-2 truncate",
       )}
     >
       {Icon && (
@@ -171,14 +184,12 @@ const SubListItem = ({
   const { name, link } = subItem
 
   return (
-    <li onClick={handleClick} className="block w-full sm:pl-3">
+    <li onClick={handleClick} className="block w-full sm:pl-7">
       <Link
         href={link}
         className={cn(
-          buttonStyles({ variant: "ghost", size: "sm" }).base(),
-          "w-full justify-start gap-1 truncate text-muted-foreground",
-          link === currentPath &&
-            "bg-primary/20 text-primary hover:bg-primary/20 hover:text-primary",
+          link === currentPath ? activeButtonStyles : defaultButtonStyles,
+          "w-full justify-start gap-2 truncate",
         )}
       >
         <CollapsibleIcon>
