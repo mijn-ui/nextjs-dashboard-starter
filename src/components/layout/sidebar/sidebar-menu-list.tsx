@@ -1,18 +1,18 @@
 import * as React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useIsMobile } from "@/hooks/use-screen-sizes"
 import { LuChevronDown } from "react-icons/lu"
 import { PiDotOutlineFill } from "react-icons/pi"
 import { v4 as uuidv4 } from "uuid"
 import { buttonStyles, cn } from "@mijn-ui/react-theme"
-import { useMediaQuery } from "@mijn-ui/react-hooks"
 import { Button } from "@mijn-ui/react-button"
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@mijn-ui/react-collapsible"
-import { SidebarListsType } from "./sidebar-data"
+import { SidebarListsType } from "../_data/sidebar-data"
 
 /* -------------------------------------------------------------------------- */
 
@@ -29,7 +29,7 @@ const SidebarMenuList = ({
   setActiveIndex,
   onClick,
 }: SidebarMenuListProps) => {
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useIsMobile()
   const currentPath = usePathname()
 
   const handleToggle = (index: number) => {
@@ -74,7 +74,7 @@ const ListItem = ({
   handleToggle,
   handleClick,
 }: ListItemProps) => {
-  const { icon, title, list, link } = listItem
+  const { icon: Icon, title, list, link } = listItem
   const isSidebarMenuList = Array.isArray(list) && !link
 
   if (isSidebarMenuList) {
@@ -86,9 +86,9 @@ const ListItem = ({
         onOpenChange={() => handleToggle(index)}
       >
         <CollapsibleTrigger className="group flex w-full items-center gap-2 truncate px-4 py-2 text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground data-[state=open]:text-primary">
-          {icon && (
+          {Icon && (
             <CollapsibleIcon className="[&>svg]:size-3.5">
-              {icon}
+              <Icon />
             </CollapsibleIcon>
           )}
           <div className="w-full flex-1 text-left">{title}</div>
@@ -125,9 +125,9 @@ const ListItem = ({
         onClick={handleClick}
         className="w-full justify-start gap-2 truncate px-3 text-muted-foreground"
       >
-        {icon && (
+        {Icon && (
           <span className="flex size-5 shrink-0 items-center justify-center [&>svg]:size-3.5">
-            {icon}
+            <Icon />
           </span>
         )}
         {title}
@@ -147,8 +147,10 @@ const ListItem = ({
           "bg-primary/20 text-primary hover:bg-primary/20 hover:text-primary",
       )}
     >
-      {icon && (
-        <CollapsibleIcon className="[&>svg]:size-3.5">{icon}</CollapsibleIcon>
+      {Icon && (
+        <CollapsibleIcon className="[&>svg]:size-3.5">
+          <Icon />
+        </CollapsibleIcon>
       )}
       {title}
     </Link>

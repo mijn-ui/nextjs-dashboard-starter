@@ -3,14 +3,15 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useIsDesktop } from "@/hooks/use-screen-sizes"
 import ClickAwayListener from "react-click-away-listener"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import { LuArrowRight } from "react-icons/lu"
 import { buttonStyles, cn } from "@mijn-ui/react-theme"
-import { useMediaQuery } from "@mijn-ui/react-hooks"
 import { Button } from "@mijn-ui/react-button"
 import Logo from "@/components/common/logo"
-import { SidebarData, getSidebarActiveInfo } from "./sidebar-data"
+import { SidebarData, getSidebarActiveInfo } from "../_data/sidebar-data"
+import { ADMIN_URL } from "../_data/url-data"
 import SidebarMenuList from "./sidebar-menu-list"
 
 /* -------------------------------------------------------------------------- */
@@ -38,7 +39,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
     },
   )
 
-  const isDesktop = useMediaQuery("(min-width: 1024px)")
+  const isDesktop = useIsDesktop()
 
   const handleSetActiveIndex = (index: number) => {
     setActiveIndices((prev) => ({
@@ -72,11 +73,11 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
 
           <div className="flex flex-col gap-2">
             <Link
-              href={"/admin/app-panel"}
+              href={ADMIN_URL}
               className={cn(
                 buttonStyles({
                   variant: "outlined",
-                  size: "icon",
+                  iconOnly: true,
                 }).base(),
                 "border-primary bg-accent/80 text-primary hover:text-primary",
               )}
@@ -85,12 +86,12 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
               <BsGrid3X3GapFill size={20} />
             </Link>
 
-            {SidebarData.map((data, index) => (
+            {SidebarData.map(({ title, icon: Icon }, index) => (
               <Button
-                key={data.title}
+                key={title}
                 variant="ghost"
                 color="default"
-                size={"icon"}
+                iconOnly
                 onClick={() => handleSidebarIconClick(index)}
                 className={cn(
                   "text-foreground",
@@ -98,9 +99,9 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                     ? "bg-accent/80 text-primary hover:text-primary"
                     : "text-muted-foreground",
                 )}
-                title={data.title}
+                title={title}
               >
-                {data.icon}
+                {Icon && <Icon />}
               </Button>
             ))}
           </div>
@@ -141,8 +142,8 @@ type SidebarTogglerProps = {
 
 const SidebarToggler = ({ isOpen, setIsOpen }: SidebarTogglerProps) => (
   <Button
-    size={"icon"}
-    className="rounded-default absolute bottom-20 right-0 hidden size-7 translate-x-3.5 p-0 md:flex"
+    iconOnly
+    className="absolute bottom-20 right-0 hidden size-7 translate-x-3.5 rounded-medium p-0 md:flex"
     onClick={() => setIsOpen(!isOpen)}
   >
     <LuArrowRight

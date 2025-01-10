@@ -2,6 +2,7 @@
 
 import React from "react"
 import { useScrollLockEffect } from "@/hooks/use-scroll-lock"
+import Navbar from "./navbar"
 import Sidebar, { SidebarSkeleton } from "./sidebar"
 import { useLayout } from "./use-layout"
 
@@ -29,6 +30,11 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Sidebar Component */}
       <Sidebar isOpen={isSidebarActive} setIsOpen={setIsSidebarActive} />
+
+      <Navbar
+        setIsSidebarActive={setIsSidebarActive}
+        style={mainContainerStyles}
+      />
 
       {/* Main Content Area */}
       <main

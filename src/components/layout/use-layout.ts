@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { useMediaQuery } from "@mijn-ui/react-hooks"
+import { useIsDesktop } from "@/hooks/use-screen-sizes"
 
 /**
  * Hook for managing layout-related state and properties.
@@ -10,7 +10,7 @@ import { useMediaQuery } from "@mijn-ui/react-hooks"
  */
 export const useLayout = () => {
   const [isSidebarActive, setIsSidebarActive] = useState(false)
-  const isDesktop = useMediaQuery("(min-width: 1024px)")
+  const isDesktop = useIsDesktop()
 
   const SIDEBAR_CONTENT_WIDTH = isDesktop ? 288 : 244
   const SIDEBAR_WIDTH = isDesktop ? 70 : 60

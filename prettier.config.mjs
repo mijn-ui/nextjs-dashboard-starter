@@ -1,6 +1,6 @@
 export default {
   semi: false,
-  printWidth: 80,
+  printWidth: 120,
   singleQuote: false,
   tabWidth: 2,
   importOrder: [
@@ -18,6 +18,7 @@ export default {
   ],
   importOrderSeparation: false,
   importOrderSortSpecifiers: true,
+  tailwindFunctions: ["clsx", "cn", "tv"],
   plugins: [
     "@trivago/prettier-plugin-sort-imports",
     // make sure to put the prettier-plugin-tailwindcss at the end otherwise it will not work
