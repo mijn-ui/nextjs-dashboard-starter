@@ -41,7 +41,7 @@ const Profile = ({
   const isMobile = useIsMobile()
 
   const renderUserAvatar = (
-    <ResponsiveAvatar className="h-auto shrink-0 rounded-full">
+    <ResponsiveAvatar className="rounded-full">
       <AvatarImage src={user.avatar} alt={user.name} />
       <AvatarFallback className="size-full cursor-pointer">
         {user.name.substring(0, 1)}
@@ -105,7 +105,9 @@ const Profile = ({
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>{renderUserAvatar}</DropdownMenuTrigger>
+      <DropdownMenuTrigger unstyled asChild>
+        {renderUserAvatar}
+      </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-52 gap-0 md:w-64" align="end">
         <DropdownMenuGroup className="space-y-2 p-2 md:space-y-3 md:p-2">

@@ -1,5 +1,5 @@
-import { SidebarData } from "../_data/sidebar-data"
-import { URLS } from "../_data/url-data"
+import { SidebarData } from "./_data/sidebar-data"
+import { URLS } from "./_data/url-data"
 
 export const isExistingUrl = (url: string): boolean => {
   return Object.entries(URLS).some(([_, value]) => value === url)

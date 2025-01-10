@@ -12,8 +12,7 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
-import { getSidebarActiveInfo } from "../_data/sidebar-data"
-import { isExistingUrl } from "../_data/sidebar-data"
+import { getSidebarActiveInfo, isExistingUrl } from "../utils"
 
 /* -------------------------------------------------------------------------- */
 
@@ -37,7 +36,7 @@ const PageInfo = ({ fallbackTitle, className }: PageInfoProps) => {
       <h3 className="font-semibold text-foreground md:text-lg">
         {activeSidebarInfo?.title || fallbackTitle || "MijnUI Demo Business"}
       </h3>
-      <DynamicBreadcrumb paths={paths} />
+      {isExistingUrl(pathname) && <DynamicBreadcrumb paths={paths} />}
     </div>
   )
 }

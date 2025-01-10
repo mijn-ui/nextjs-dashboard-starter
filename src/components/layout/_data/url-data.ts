@@ -1,4 +1,4 @@
-const ADMIN_URL = "/admin/app-panel"
+const ADMIN_URL = "/dashboard"
 
 const SIDEBAR_URLS = {
   CONTACTS_SUPPLIERS: "/contacts/suppliers",
@@ -14,8 +14,7 @@ const SIDEBAR_URLS = {
   STOCK_TRANSFER: "/contacts/stock-transfer",
   STOCK_TRANSFER_CREATE: "/contacts/stock-transfer/create",
   STOCK_ADJUSTMENT: "/stock-adjustment",
-  REPORTS_CURRENT_STOCK_BALANCE_PRODUCT:
-    "/reports/current-stock-balance/product",
+  REPORTS_CURRENT_STOCK_BALANCE_PRODUCT: "/reports/current-stock-balance/product",
   REPORTS_SALES: "/reports/sales",
   REPORTS_SALES_DETAIL: "/reports/sales-detail",
   PROFIT_LOSS_REPORT: "/profit-loss/report",

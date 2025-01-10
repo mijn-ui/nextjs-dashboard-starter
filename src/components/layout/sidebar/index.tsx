@@ -10,8 +10,9 @@ import { LuArrowRight } from "react-icons/lu"
 import { buttonStyles, cn } from "@mijn-ui/react-theme"
 import { Button } from "@mijn-ui/react-button"
 import Logo from "@/components/common/logo"
-import { SidebarData, getSidebarActiveInfo } from "../_data/sidebar-data"
+import { SidebarData } from "../_data/sidebar-data"
 import { ADMIN_URL } from "../_data/url-data"
+import { getSidebarActiveInfo } from "../utils"
 import SidebarMenuList from "./sidebar-menu-list"
 
 /* -------------------------------------------------------------------------- */
