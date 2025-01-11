@@ -183,7 +183,7 @@ export function DataTable<TData, TValue>({
                   <LuChevronLeft className="size-4" />
                 </PaginationPreviousButton>
               </Button>
-              <PaginationList className="[&>li>button]:size-9 sm:[&>li>button]:size-10" />
+              <PaginationList className="hidden md:flex [&>li>button]:size-9" />
               <Button asChild size="xs" variant="ghost">
                 <PaginationNextButton unstyled aria-label="Go to the next page." disabled={!table.getCanNextPage()}>
                   <LuChevronRight className="size-4" />
