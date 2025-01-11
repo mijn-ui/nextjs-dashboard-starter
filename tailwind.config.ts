@@ -5,6 +5,7 @@ import { mijnui } from "@mijn-ui/react-theme"
 export default {
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/features/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@mijn-ui/react-theme/dist/**/*.js",
   ],

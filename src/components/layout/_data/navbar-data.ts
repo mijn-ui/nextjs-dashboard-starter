@@ -22,7 +22,7 @@ export const LANGUAGE_OPTIONS: LANGUAGE_OPTIONS_TYPE[] = [
   },
 ]
 
-export const DEFAULT_SELECTED_LANGUAGE = LANGUAGE_OPTIONS[0].name
+export const DEFAULT_SELECTED_LANGUAGE = LANGUAGE_OPTIONS[1].name
 
 /* -------------------------------- USER INFO ------------------------------- */
 

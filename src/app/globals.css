@@ -3,14 +3,27 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --sidebar: var(--mijnui-card);
+    --chart-1: 27 96% 61%;
+    --chart-2: 33 35% 50%;
+    --chart-3: 43 74% 66%;
+    --chart-4: 173 58% 39%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --chart-1: 17.5 88.3% 40.4%;
+    --chart-2: 33 35% 50%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+
   * {
     @apply border-border;
   }
   body {
     @apply bg-background font-sans text-foreground antialiased;
   }
-}
-
-:root {
-  --sidebar: var(--mijnui-card);
 }
