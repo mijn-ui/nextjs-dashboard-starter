@@ -3,8 +3,8 @@
 import React from "react"
 import { useScrollLockEffect } from "@/hooks/use-scroll-lock"
 import { ScrollArea } from "@mijn-ui/react-scroll-area"
-import Navbar from "./navbar"
-import Sidebar, { SidebarSkeleton } from "./sidebar"
+import Navbar from "./navbar/navbar"
+import Sidebar, { SidebarSkeleton } from "./sidebar/sidebar"
 import { useLayout } from "./use-layout"
 
 interface LayoutProps {

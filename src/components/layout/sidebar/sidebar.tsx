@@ -5,13 +5,11 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useIsDesktop } from "@/hooks/use-screen-sizes"
 import ClickAwayListener from "react-click-away-listener"
-import { BsGrid3X3GapFill } from "react-icons/bs"
 import { LuArrowRight } from "react-icons/lu"
-import { buttonStyles, cn } from "@mijn-ui/react-theme"
+import { cn } from "@mijn-ui/react-theme"
 import { Button } from "@mijn-ui/react-button"
 import Logo from "@/components/common/logo"
 import { SidebarData } from "../_data/sidebar-data"
-import { ADMIN_URL } from "../_data/url-data"
 import { getSidebarActiveInfo } from "../utils"
 import SidebarMenuList from "./sidebar-menu-list"
 
@@ -29,29 +27,29 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
   const activeSidebarInfo = getSidebarActiveInfo(path)
 
   // State for current menu index
-  const [currentMenuIndex, setCurrentMenuIndex] = useState<number>(activeSidebarInfo?.index || 0)
+  const [currentMenuId, setCurrentMenuId] = useState<string>(activeSidebarInfo?.id || "")
 
-  // State for active indices of collapsible lists
-  const [activeIndices, setActiveIndices] = useState<{ [key: number]: number }>({
-    [currentMenuIndex]: activeSidebarInfo?.collapsibleIndex || -1,
+  // State for active of collapsible lists
+  const [activeCollapsibleId, setActiveCollapsibleId] = useState<Record<string, string>>({
+    [currentMenuId]: activeSidebarInfo?.collapsibleId || "",
   })
 
   const isDesktop = useIsDesktop()
 
-  const handleSetActiveIndex = (index: number) => {
-    setActiveIndices((prev) => ({
+  const handleSetActiveIndex = (id: string) => {
+    setActiveCollapsibleId((prev) => ({
       ...prev,
-      [currentMenuIndex]: index,
+      [currentMenuId]: id,
     }))
   }
 
-  const handleSidebarIconClick = (index: number) => {
-    setCurrentMenuIndex(index)
+  const handleSidebarIconClick = (id: string) => {
+    setCurrentMenuId(id)
     setIsOpen(true)
   }
 
-  const currentSidebarData = SidebarData[currentMenuIndex]
-  const currentActiveIndex = activeIndices[currentMenuIndex] ?? -1
+  const currentSidebarData = SidebarData.find((data) => data.id === currentMenuId)
+  const currentActiveIndex = activeCollapsibleId[currentMenuId] ?? ""
 
   return (
     <ClickAwayListener onClickAway={() => setIsOpen(false)}>
@@ -67,32 +65,14 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
             <Logo className="size-6" />
           </Link>
 
-          <div className="flex flex-col gap-2">
-            <Link
-              href={ADMIN_URL}
-              className={cn(
-                buttonStyles({
-                  variant: "outlined",
-                  iconOnly: true,
-                }).base(),
-                "border-primary bg-accent/80 text-primary hover:text-primary",
-              )}
-              title={"App"}
-            >
-              <BsGrid3X3GapFill size={20} />
-            </Link>
-
-            {SidebarData.map(({ title, icon: Icon }, index) => (
+          <div className="flex flex-col gap-2 pt-5">
+            {SidebarData.map(({ id, title, icon: Icon }) => (
               <Button
-                key={title}
-                variant="ghost"
-                color="default"
+                key={id}
+                variant={id === currentMenuId ? "subtle" : "ghost"}
+                color={id === currentMenuId ? "primary" : "default"}
                 iconOnly
-                onClick={() => handleSidebarIconClick(index)}
-                className={cn(
-                  "text-foreground",
-                  index === currentMenuIndex ? "bg-accent/80 text-primary hover:text-primary" : "text-muted-foreground",
-                )}
+                onClick={() => handleSidebarIconClick(id)}
                 title={title}
               >
                 {Icon && <Icon />}
@@ -111,13 +91,15 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           </h3>
 
           <div className="px-3 md:px-6">
-            <SidebarMenuList
-              key={currentMenuIndex}
-              lists={currentSidebarData?.lists}
-              activeIndex={currentActiveIndex ?? -1}
-              setActiveIndex={handleSetActiveIndex}
-              onClick={setIsOpen}
-            />
+            {currentSidebarData?.lists && (
+              <SidebarMenuList
+                key={currentMenuId}
+                lists={currentSidebarData?.lists}
+                activeIndex={currentActiveIndex}
+                setActiveIndex={handleSetActiveIndex}
+                onClick={setIsOpen}
+              />
+            )}
           </div>
         </div>
 

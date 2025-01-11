@@ -93,7 +93,14 @@ export default function ProductForm({ initialData, pageTitle }: { initialData: P
                   <FormItem>
                     <FormLabel>Product Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter product name" {...field} />
+                      <Input
+                        classNames={{
+                          input: "bg-default",
+                          label: "bg-default peer-focus:bg-default",
+                        }}
+                        placeholder="Enter product name"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -133,7 +140,16 @@ export default function ProductForm({ initialData, pageTitle }: { initialData: P
                   <FormItem>
                     <FormLabel>Price</FormLabel>
                     <FormControl>
-                      <Input type="number" step="0.01" placeholder="Enter price" {...field} />
+                      <Input
+                        classNames={{
+                          input: "bg-default",
+                          label: "bg-default peer-focus:bg-default",
+                        }}
+                        type="number"
+                        step="0.01"
+                        placeholder="Enter price"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -147,13 +163,15 @@ export default function ProductForm({ initialData, pageTitle }: { initialData: P
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="Enter product description" className="resize-none" {...field} />
+                    <Textarea placeholder="Enter product description" className="resize-none bg-default" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Add Product</Button>
+            <Button type="submit" color="primary">
+              Add Product
+            </Button>
           </form>
         </Form>
       </CardContent>

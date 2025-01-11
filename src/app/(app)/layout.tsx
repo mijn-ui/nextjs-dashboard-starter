@@ -2,9 +2,9 @@
 
 import React from "react"
 import dynamic from "next/dynamic"
-import { LayoutSkeleton } from "@/components/layout"
+import { LayoutSkeleton } from "@/components/layout/layout"
 
-const Layout = dynamic(() => import("@/components/layout"), {
+const Layout = dynamic(() => import("@/components/layout/layout"), {
   loading: () => <LayoutSkeleton />,
   ssr: false,
 })

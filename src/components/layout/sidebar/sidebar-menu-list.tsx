@@ -4,36 +4,26 @@ import { usePathname } from "next/navigation"
 import { useIsMobile } from "@/hooks/use-screen-sizes"
 import { LuChevronDown } from "react-icons/lu"
 import { PiDotOutlineFill } from "react-icons/pi"
-import { v4 as uuidv4 } from "uuid"
 import { buttonStyles, cn } from "@mijn-ui/react-theme"
 import { Button } from "@mijn-ui/react-button"
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@mijn-ui/react-collapsible"
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@mijn-ui/react-collapsible"
 import { SidebarListsType } from "../_data/sidebar-data"
 
 /* -------------------------------------------------------------------------- */
 
 type SidebarMenuListProps = {
   lists: SidebarListsType[]
-  activeIndex: number
-  setActiveIndex: (index: number) => void
+  activeIndex: string
+  setActiveIndex: (id: string) => void
   onClick: (isOpen: boolean) => void
 }
 
-const SidebarMenuList = ({
-  lists,
-  activeIndex,
-  setActiveIndex,
-  onClick,
-}: SidebarMenuListProps) => {
+const SidebarMenuList = ({ lists, activeIndex, setActiveIndex, onClick }: SidebarMenuListProps) => {
   const isMobile = useIsMobile()
   const currentPath = usePathname()
 
-  const handleToggle = (index: number) => {
-    setActiveIndex(index === activeIndex ? -1 : index)
+  const handleToggle = (id: string) => {
+    setActiveIndex(id === activeIndex ? "" : id)
   }
 
   const handleClick = () => {
@@ -42,11 +32,10 @@ const SidebarMenuList = ({
 
   return (
     <div className="flex w-full flex-col items-center">
-      {lists.map((listItem, index) => (
+      {lists.map((listItem) => (
         <ListItem
-          key={uuidv4()}
+          key={listItem.id}
           listItem={listItem}
-          index={index}
           activeIndex={activeIndex}
           currentPath={currentPath}
           handleToggle={handleToggle}
@@ -72,35 +61,20 @@ const activeButtonStyles = buttonStyles({
 
 type ListItemProps = {
   listItem: SidebarListsType
-  index: number
-  activeIndex: number
+  activeIndex: string
   currentPath: string
-  handleToggle: (index: number) => void
+  handleToggle: (id: string) => void
   handleClick: () => void
 }
 
-const ListItem = ({
-  listItem,
-  index,
-  activeIndex,
-  currentPath,
-  handleToggle,
-  handleClick,
-}: ListItemProps) => {
+const ListItem = ({ listItem, activeIndex, currentPath, handleToggle, handleClick }: ListItemProps) => {
   const { icon: Icon, title, list, link } = listItem
   const isSidebarMenuList = Array.isArray(list) && !link
 
-  // TODO: Make the collabsible component's animation work.
-
   if (isSidebarMenuList) {
     return (
-      <Collapsible
-        key={`list-${uuidv4()}`}
-        className="w-full"
-        open={activeIndex === index}
-        onOpenChange={() => handleToggle(index)}
-      >
-        <CollapsibleTrigger className="group flex w-full items-center gap-2 truncate px-4 py-2 text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground data-[state=open]:text-primary">
+      <Collapsible className="w-full" open={activeIndex === listItem.id} onOpenChange={() => handleToggle(listItem.id)}>
+        <CollapsibleTrigger className="flex w-full items-center gap-2 truncate px-3 py-2 text-sm text-muted-foreground transition-colors duration-300 hover:text-foreground data-[state=open]:text-primary">
           {Icon && (
             <CollapsibleIcon className="[&>svg]:size-3.5">
               <Icon />
@@ -109,21 +83,19 @@ const ListItem = ({
           <div className="w-full flex-1 text-left">{title}</div>
           <LuChevronDown
             className={cn(
-              "size-4 shrink-0 rotate-0 text-muted-foreground transition-transform duration-300 ease-in-out",
-              activeIndex === index && "rotate-180",
+              "size-4 shrink-0 text-muted-foreground transition-transform duration-300 ease-in-out",
+              activeIndex === listItem.id && "rotate-180",
             )}
           />
         </CollapsibleTrigger>
 
-        <CollapsibleContent asChild>
+        <CollapsibleContent
+          className="overflow-hidden text-sm transition-[height] duration-300 data-[state=closed]:animate-collapsible-close data-[state=open]:animate-collapsible-open"
+          asChild
+        >
           <ul className="flex flex-col gap-1 overflow-hidden">
             {list?.map((subItem) => (
-              <SubListItem
-                key={`list-item-${uuidv4()}`}
-                subItem={subItem}
-                currentPath={currentPath}
-                handleClick={handleClick}
-              />
+              <SubListItem key={subItem.id} subItem={subItem} currentPath={currentPath} handleClick={handleClick} />
             ))}
           </ul>
         </CollapsibleContent>
@@ -136,7 +108,7 @@ const ListItem = ({
       <Button
         variant={"ghost"}
         size="sm"
-        key={`list-${uuidv4()}`}
+        key={listItem.id}
         onClick={handleClick}
         className="w-full justify-start gap-2 truncate px-3 text-muted-foreground"
       >
@@ -153,7 +125,7 @@ const ListItem = ({
   return (
     <Link
       href={link}
-      key={`list-${uuidv4()}`}
+      key={listItem.id}
       onClick={handleClick}
       className={cn(
         link === currentPath ? activeButtonStyles : defaultButtonStyles,
@@ -171,20 +143,16 @@ const ListItem = ({
 }
 
 type SubListItemProps = {
-  subItem: { name: string; link: string }
+  subItem: { id: string; name: string; link: string }
   currentPath: string
   handleClick: () => void
 }
 
-const SubListItem = ({
-  subItem,
-  currentPath,
-  handleClick,
-}: SubListItemProps) => {
+const SubListItem = ({ subItem, currentPath, handleClick }: SubListItemProps) => {
   const { name, link } = subItem
 
   return (
-    <li onClick={handleClick} className="block w-full sm:pl-7">
+    <li onClick={handleClick} className="block w-full sm:pl-5">
       <Link
         href={link}
         className={cn(
@@ -201,18 +169,9 @@ const SubListItem = ({
   )
 }
 
-const CollapsibleIcon = ({
-  className,
-  ...props
-}: React.ComponentProps<"span">) => {
+const CollapsibleIcon = ({ className, ...props }: React.ComponentProps<"span">) => {
   return (
-    <span
-      className={cn(
-        "flex size-5 shrink-0 items-center justify-center [&>svg]:size-4",
-        className,
-      )}
-      {...props}
-    />
+    <span className={cn("flex size-5 shrink-0 items-center justify-center [&>svg]:size-4", className)} {...props} />
   )
 }
 
