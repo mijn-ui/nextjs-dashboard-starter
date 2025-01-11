@@ -29,16 +29,12 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
   const activeSidebarInfo = getSidebarActiveInfo(path)
 
   // State for current menu index
-  const [currentMenuIndex, setCurrentMenuIndex] = useState<number>(
-    activeSidebarInfo?.index || 0,
-  )
+  const [currentMenuIndex, setCurrentMenuIndex] = useState<number>(activeSidebarInfo?.index || 0)
 
   // State for active indices of collapsible lists
-  const [activeIndices, setActiveIndices] = useState<{ [key: number]: number }>(
-    {
-      [currentMenuIndex]: activeSidebarInfo?.collapsibleIndex || -1,
-    },
-  )
+  const [activeIndices, setActiveIndices] = useState<{ [key: number]: number }>({
+    [currentMenuIndex]: activeSidebarInfo?.collapsibleIndex || -1,
+  })
 
   const isDesktop = useIsDesktop()
 
@@ -63,8 +59,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
         data-state={isOpen ? "open" : "closed"}
         className={cn(
           "group fixed inset-y-0 left-0 z-50 flex bg-sidebar shadow-md transition-[left] duration-300 ease-in-out",
-          !isDesktop &&
-            "data-[state=closed]:-left-[var(--sidebar-content-width)]",
+          !isDesktop && "data-[state=closed]:-left-[var(--sidebar-content-width)]",
         )}
       >
         <div className="flex w-[var(--sidebar-width)] flex-col items-center gap-8 pt-8">
@@ -96,9 +91,7 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
                 onClick={() => handleSidebarIconClick(index)}
                 className={cn(
                   "text-foreground",
-                  index === currentMenuIndex
-                    ? "bg-accent/80 text-primary hover:text-primary"
-                    : "text-muted-foreground",
+                  index === currentMenuIndex ? "bg-accent/80 text-primary hover:text-primary" : "text-muted-foreground",
                 )}
                 title={title}
               >
@@ -147,9 +140,7 @@ const SidebarToggler = ({ isOpen, setIsOpen }: SidebarTogglerProps) => (
     className="absolute bottom-20 right-0 hidden size-7 translate-x-3.5 rounded-medium p-0 md:flex"
     onClick={() => setIsOpen(!isOpen)}
   >
-    <LuArrowRight
-      className={`transition-all duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`}
-    />
+    <LuArrowRight className={`transition-all duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`} />
   </Button>
 )
 
