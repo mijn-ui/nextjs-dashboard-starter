@@ -10,16 +10,13 @@ import {
 } from "@tanstack/react-table"
 import { parseAsInteger, useQueryState } from "nuqs"
 import { LuChevronLeft, LuChevronRight, LuChevronsLeft, LuChevronsRight } from "react-icons/lu"
-import { RxDoubleArrowLeft, RxDoubleArrowRight } from "react-icons/rx"
 import { Button } from "@mijn-ui/react-button"
 import {
   Pagination,
   PaginationContent,
   PaginationList,
   PaginationNextButton,
-  PaginationNextEllipsis,
   PaginationPreviousButton,
-  PaginationPreviousEllipsis,
 } from "@mijn-ui/react-pagination"
 import { ScrollArea, ScrollBar } from "@mijn-ui/react-scroll-area"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@mijn-ui/react-select"

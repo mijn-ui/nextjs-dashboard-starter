@@ -41,7 +41,7 @@ const configs = [
       "import/no-anonymous-default-export": "off",
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/no-empty-object-type": "warn",
-      "@typescript-eslint/no-unused-expression": "warn",
+      "@typescript-eslint/no-unused-expressions": "warn",
       "@typescript-eslint/no-unused-vars": [
         "warn",
         {

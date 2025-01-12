@@ -16,7 +16,7 @@ export default function GithubSignInButton() {
       type="button"
       onClick={() => signIn("github", { callbackUrl: callbackUrl ?? "/dashboard" })}
     >
-      <FaGithub className="mr-2 h-4 w-4" />
+      <FaGithub className="mr-2 size-4" />
       Continue with Github
     </Button>
   )

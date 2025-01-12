@@ -2,7 +2,7 @@ import { IconType } from "react-icons"
 import { AiFillProduct } from "react-icons/ai"
 import { BsBarChartLineFill, BsKanbanFill } from "react-icons/bs"
 import { FaAddressBook, FaChartLine, FaList, FaPeopleCarry, FaWarehouse } from "react-icons/fa"
-import { FaCashRegister, FaCirclePlus, FaShop, FaSquareMinus, FaSquarePlus, FaUserGroup } from "react-icons/fa6"
+import { FaCashRegister, FaShop, FaSquareMinus, FaSquarePlus, FaUserGroup } from "react-icons/fa6"
 import { MdDashboard } from "react-icons/md"
 import { SIDEBAR_URLS } from "./url-data"
 

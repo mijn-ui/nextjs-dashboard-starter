@@ -59,7 +59,7 @@ export function ColumnActions({ title, id }: { title: string; id: UniqueIdentifi
         <DropdownMenuTrigger unstyled asChild>
           <Button radius="full" size="xs" variant="ghost" iconOnly className="ml-1">
             <span className="sr-only">Actions</span>
-            <LuEllipsisVertical className="h-4 w-4" />
+            <LuEllipsisVertical className="size-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
