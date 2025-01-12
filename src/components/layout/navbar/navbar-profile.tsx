@@ -2,13 +2,9 @@ import React from "react"
 import Image from "next/image"
 import { useResponsiveVariants } from "@/hooks/use-responsive-variants"
 import { useIsMobile } from "@/hooks/use-screen-sizes"
+import { signOut, useSession } from "next-auth/react"
 import { AvatarVariantProps } from "@mijn-ui/react-theme"
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-  AvatarProps,
-} from "@mijn-ui/react-avatar"
+import { Avatar, AvatarFallback, AvatarImage, AvatarProps } from "@mijn-ui/react-avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -32,20 +28,14 @@ type ProfileProps = {
   onSelect: (value: string) => void
 }
 
-const Profile = ({
-  user,
-  LanguageOptions,
-  selectedLanguage,
-  onSelect,
-}: ProfileProps) => {
+const Profile = ({ user, LanguageOptions, selectedLanguage, onSelect }: ProfileProps) => {
+  const { data: session } = useSession()
   const isMobile = useIsMobile()
 
   const renderUserAvatar = (
     <ResponsiveAvatar className="rounded-full">
-      <AvatarImage src={user.avatar} alt={user.name} />
-      <AvatarFallback className="size-full cursor-pointer">
-        {user.name.substring(0, 1)}
-      </AvatarFallback>
+      <AvatarImage src={session?.user?.image ?? ""} alt={user.name} />
+      <AvatarFallback className="size-full cursor-pointer">{session?.user?.name?.[0]}</AvatarFallback>
     </ResponsiveAvatar>
   )
 
@@ -53,15 +43,13 @@ const Profile = ({
     <div className="flex items-center gap-4">
       {renderUserAvatar}
       <div>
-        <p className="font-semibold text-foreground md:text-sm">{user.name}</p>
-        <p className="text-xs text-muted-foreground">{user.role}</p>
+        <p className="font-semibold text-foreground md:text-sm">{session?.user?.name}</p>
+        <p className="text-xs text-muted-foreground">Operator</p>
       </div>
     </div>
   )
 
-  const selectedLanguageData =
-    LanguageOptions.find((option) => option.name === selectedLanguage) ||
-    LanguageOptions[0]
+  const selectedLanguageData = LanguageOptions.find((option) => option.name === selectedLanguage) || LanguageOptions[0]
 
   const renderLanguageSelector = (
     <DropdownMenuSub>
@@ -81,18 +69,9 @@ const Profile = ({
       <DropdownMenuPortal>
         <DropdownMenuSubContent>
           {LanguageOptions.map((option) => (
-            <DropdownMenuItem
-              key={option.name}
-              onClick={() => onSelect(option.name)}
-            >
+            <DropdownMenuItem key={option.name} onClick={() => onSelect(option.name)}>
               <div className="flex items-center gap-2 text-xs/6">
-                <Image
-                  src={option.src}
-                  width={80}
-                  height={80}
-                  alt={option.alt}
-                  className="size-4 rounded-md"
-                />
+                <Image src={option.src} width={80} height={80} alt={option.alt} className="size-4 rounded-md" />
 
                 {option.name}
               </div>
@@ -110,9 +89,10 @@ const Profile = ({
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="w-52 gap-0 md:w-64" align="end">
-        <DropdownMenuGroup className="space-y-2 p-2 md:space-y-3 md:p-2">
-          {renderUserInfo}
+        <DropdownMenuGroup className="p-2">{renderUserInfo}</DropdownMenuGroup>
+        <DropdownMenuGroup className="px-2">
           <DropdownMenuItem>My Profile</DropdownMenuItem>
+          <DropdownMenuItem>Settings</DropdownMenuItem>
 
           {isMobile && (
             <>
@@ -124,7 +104,7 @@ const Profile = ({
         <DropdownMenuSeparator />
 
         <DropdownMenuGroup className="p-2">
-          <DropdownMenuItem>Sign Out</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => signOut()}>Log out</DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>

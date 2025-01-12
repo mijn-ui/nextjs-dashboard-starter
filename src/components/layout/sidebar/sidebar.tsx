@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useIsDesktop } from "@/hooks/use-screen-sizes"
@@ -23,16 +23,22 @@ type SidebarProps = {
 const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
   const path = usePathname()
 
-  // Get active menu and collapsible indices
-  const activeSidebarInfo = getSidebarActiveInfo(path)
+  // State for current menu id
+  const [currentMenuId, setCurrentMenuId] = useState<string>("")
 
-  // State for current menu index
-  const [currentMenuId, setCurrentMenuId] = useState<string>(activeSidebarInfo?.id || "")
+  // State for active collapsible id
+  const [activeCollapsibleId, setActiveCollapsibleId] = useState<Record<string, string>>({})
 
-  // State for active of collapsible lists
-  const [activeCollapsibleId, setActiveCollapsibleId] = useState<Record<string, string>>({
-    [currentMenuId]: activeSidebarInfo?.collapsibleId || "",
-  })
+  useEffect(() => {
+    const activeSidebarInfo = getSidebarActiveInfo(path)
+    if (activeSidebarInfo) {
+      setCurrentMenuId(activeSidebarInfo.id)
+      setActiveCollapsibleId((prev) => ({
+        ...prev,
+        [activeSidebarInfo.id]: activeSidebarInfo.collapsibleId || "",
+      }))
+    }
+  }, [path])
 
   const isDesktop = useIsDesktop()
 

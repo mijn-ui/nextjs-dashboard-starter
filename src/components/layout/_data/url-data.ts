@@ -6,10 +6,10 @@ const SIDEBAR_URLS = {
     KANBAN: "/dashboard/kanban",
   },
   CONTACTS: {
-    SUPPLIERS: "/contacts/suppliers",
-    SUPPLIERS_CREATE: "/contacts/suppliers/create",
-    CUSTOMERS: "/contacts/customers",
-    CUSTOMERS_CREATE: "/contacts/customers/create",
+    SUPPLIERS: "/contact/suppliers",
+    SUPPLIERS_CREATE: "/contact/suppliers/create",
+    CUSTOMERS: "/contact/customers",
+    CUSTOMERS_CREATE: "/contact/customers/create",
   },
   SELL: {
     CREATE_PAGE: "/sell/create/page",
