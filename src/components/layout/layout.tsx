@@ -29,7 +29,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       {/* Main Content Area */}
       <main style={{ ...mainContainerStyles }}>
-        <ScrollArea className="h-[calc(100dvh-var(--navbar-height))] px-2 py-5 md:px-5">{children}</ScrollArea>
+        <ScrollArea className="h-[calc(100dvh-var(--navbar-height))] w-full px-2 py-5 md:px-5 [&_[data-radix-scroll-area-viewport]:first-of-type]:!overflow-scroll">
+          {children}
+        </ScrollArea>
       </main>
     </>
   )

@@ -7,7 +7,7 @@ import { useIsDesktop } from "@/hooks/use-screen-sizes"
 import ClickAwayListener from "react-click-away-listener"
 import { LuArrowRight } from "react-icons/lu"
 import { cn } from "@mijn-ui/react-theme"
-import { Button } from "@mijn-ui/react-button"
+import { Button, ButtonProps } from "@mijn-ui/react-button"
 import Logo from "@/components/common/logo"
 import { SidebarData } from "../_data/sidebar-data"
 import { getSidebarActiveInfo } from "../utils"
@@ -67,16 +67,14 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
 
           <div className="flex flex-col gap-2 pt-5">
             {SidebarData.map(({ id, title, icon: Icon }) => (
-              <Button
+              <SidebarButton
                 key={id}
-                variant={id === currentMenuId ? "subtle" : "ghost"}
-                color={id === currentMenuId ? "primary" : "default"}
-                iconOnly
+                isActive={id === currentMenuId}
                 onClick={() => handleSidebarIconClick(id)}
                 title={title}
               >
                 {Icon && <Icon />}
-              </Button>
+              </SidebarButton>
             ))}
           </div>
         </div>
@@ -103,30 +101,48 @@ const Sidebar = ({ isOpen, setIsOpen }: SidebarProps) => {
           </div>
         </div>
 
-        <SidebarToggler isOpen={isOpen} setIsOpen={setIsOpen} />
+        <SidebarTrigger isOpen={isOpen} setIsOpen={setIsOpen} />
       </aside>
     </ClickAwayListener>
   )
 }
 
+export default Sidebar
+
 /* -------------------------------------------------------------------------- */
 
-type SidebarTogglerProps = {
+type SidebarButtonProps = ButtonProps & {
+  isActive: boolean
+}
+
+const SidebarButton = ({ isActive, ...props }: SidebarButtonProps) => {
+  return (
+    <Button
+      variant={isActive ? "subtle" : "ghost"}
+      color={isActive ? "primary" : "default"}
+      className={cn(!isActive && "text-muted-foreground")}
+      iconOnly
+      {...props}
+    />
+  )
+}
+
+/* -------------------------------------------------------------------------- */
+
+type SidebarTriggerProps = {
   isOpen: boolean
   setIsOpen: (isOpen: boolean) => void
 }
 
-const SidebarToggler = ({ isOpen, setIsOpen }: SidebarTogglerProps) => (
+const SidebarTrigger = ({ isOpen, setIsOpen }: SidebarTriggerProps) => (
   <Button
     iconOnly
     className="absolute bottom-20 right-0 hidden size-7 translate-x-3.5 rounded-medium p-0 md:flex"
     onClick={() => setIsOpen(!isOpen)}
   >
-    <LuArrowRight className={`transition-all duration-300 ${isOpen ? "rotate-180" : "rotate-0"}`} />
+    <LuArrowRight className={cn("rotate-180 transition-transform duration-300", isOpen && "rotate-0")} />
   </Button>
 )
-
-export default Sidebar
 
 /* -------------------------------------------------------------------------- */
 

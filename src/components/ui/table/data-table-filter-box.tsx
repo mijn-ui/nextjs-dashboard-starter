@@ -57,7 +57,7 @@ export function DataTableFilterBox({ filterKey, title, options, setFilterValue, 
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger unstyled asChild>
         <Button variant="outlined" className="border-dashed">
           <RxPlusCircled className="mr-2 size-4" />
           {title}
