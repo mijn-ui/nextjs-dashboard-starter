@@ -13,4 +13,17 @@ export default auth((req) => {
   }
 })
 
-export const config = { matcher: ["/:path*"] }
+export const config = {
+  matcher: [
+    "/dashboard/:path*",
+    "/contact/:path*",
+    "/sell/:path*",
+    "/pos/:path*",
+    "/openingStock/:path*",
+    "/contacts/:path*",
+    "/stock-adjustment/:path*",
+    "/reports/:path*",
+    "/profit-loss/:path*",
+    "/sale-purchase/:path*",
+  ],
+}
