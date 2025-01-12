@@ -90,7 +90,7 @@ const Profile = ({ user, LanguageOptions, selectedLanguage, onSelect }: ProfileP
 
       <DropdownMenuContent className="w-52 gap-0 md:w-64" align="end">
         <DropdownMenuGroup className="p-2">{renderUserInfo}</DropdownMenuGroup>
-        <DropdownMenuGroup className="px-2">
+        <DropdownMenuGroup className="space-y-2 px-2">
           <DropdownMenuItem>My Profile</DropdownMenuItem>
           <DropdownMenuItem>Settings</DropdownMenuItem>
 

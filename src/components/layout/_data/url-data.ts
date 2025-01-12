@@ -1,5 +1,6 @@
 const SIDEBAR_URLS = {
   DASHBOARD: {
+    DASHBOARD: "/dashboard",
     OVERVIEW: "/dashboard/overview",
     PRODUCTS: "/dashboard/product",
     PRODUCTS_NEW: "/dashboard/product/new",

@@ -13,8 +13,8 @@ import Logo from "@/components/common/logo"
 import ThemeToggle from "@/components/theme/theme-toggle"
 import { LANGUAGE_OPTIONS_TYPE } from "../_data/navbar-data"
 import { CURRENT_USER, DEFAULT_SELECTED_LANGUAGE, LANGUAGE_OPTIONS } from "../_data/navbar-data"
-import Profile from "./navbar-profile"
 import PageInfo from "./page-info"
+import Profile from "./user-profile"
 
 /* -------------------------------------------------------------------------- */
 
